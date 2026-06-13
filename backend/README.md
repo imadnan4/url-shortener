@@ -1,14 +1,4 @@
-# URL Shortener — Backend Setup
-
-A REST API URL shortener built with Rust, Axum, and PostgreSQL.
-
-## Prerequisites
-
-- Rust (install via [rustup](https://rustup.rs)):
-  ```bash
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-  ```
-- PostgreSQL installed and running
+# Backend — Rust + Axum + PostgreSQL
 
 ## 1. Install PostgreSQL
 
@@ -45,21 +35,15 @@ GRANT ALL PRIVILEGES ON DATABASE urlshortener TO your_username;
 \q
 ```
 
-If the database already exists from a previous setup and you want a
-clean slate:
+If the database already exists and you want a clean slate:
 ```sql
 DROP DATABASE IF EXISTS urlshortener;
 CREATE DATABASE urlshortener OWNER your_username;
 ```
 
-## 3. Clone and configure
+## 3. Configure environment
 
-```bash
-git clone <repo-url>
-cd url-shortener/backend
-```
-
-Create your `.env` file:
+From `backend/`:
 ```bash
 cat > .env << 'EOF'
 DATABASE_URL=postgres://your_username:your_password@localhost:5432/urlshortener
@@ -79,15 +63,13 @@ psql postgres://your_username:your_password@localhost:5432/urlshortener -c "SELE
 cargo run
 ```
 
-First run compiles all dependencies (2-5 minutes). Subsequent runs are
-much faster. Database migrations run automatically on startup.
-
-You should see:
+First run compiles all dependencies (2-5 minutes). Migrations run
+automatically on startup. You should see:
 ```
 Server running on http://localhost:8080
 ```
 
-## 5. Verify it's working
+## 5. Verify
 
 ```bash
 curl http://localhost:8080/api/health
@@ -99,14 +81,14 @@ curl -X POST http://localhost:8080/api/shorten \
   -H "Content-Type: application/json" \
   -d '{"url":"https://github.com"}'
 ```
-Expected: a JSON response with `short_code`, `short_url`, `original_url`
+Expected: JSON with `short_code`, `short_url`, `original_url`
 
 ---
 
 ## Resetting the database (development only)
 
 If migrations get into a bad state (e.g. version mismatch after editing
-an already-applied migration), reset cleanly:
+an already-applied migration):
 
 ```bash
 psql postgres://your_username:your_password@localhost:5432/urlshortener
@@ -133,7 +115,6 @@ Then `cargo run` again — migrations reapply from scratch.
 
 ## Dependencies
 
-Installed via `cargo add`:
 ```bash
 cargo add axum
 cargo add tokio --features full
