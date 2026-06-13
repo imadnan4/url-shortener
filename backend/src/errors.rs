@@ -22,7 +22,7 @@ impl IntoResponse for AppError {
                 "CUSTOM CODE ALREADY IN USE".to_string(),
             ),
             AppError::DatabaseError(e) => {
-                tracing::error!("Database error {:?}, e");
+                tracing::error!("Database error {:?}", e);
                 (
                     StatusCode::INTERNAL_SERVER_ERROR,
                     "SOMETHING WENT WRONG".to_string(),
