@@ -54,9 +54,7 @@ See `backend/README.md` for full request/response examples.
 **Backend:** Rust, Axum, sqlx, PostgreSQL
 **Frontend:** React, Vite, TypeScript, Tailwind CSS, shadcn/ui, Hugeicons# URL Shortener
 
-A full stack URL shortener — Rust + Axum + PostgreSQL backend, React frontend.
 
-![Preview](./frontend/public/preview.png)
 
 ## Project Structure
 
