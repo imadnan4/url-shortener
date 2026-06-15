@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { ShortenResponse } from "@/api/urls"
+import type { ShortenResponse } from "@/api/urls"
 
 export function HomePage() {
   const [result, setResult] = useState<ShortenResponse | null>(null)

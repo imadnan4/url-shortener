@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Toaster } from "sonner"
 import { HomePage } from "./pages/HomePage"
-import { StatePage } from "./pages/StatsPage"
+import { StatsPage } from "./pages/StatsPage"
 
 export default function App() {
   return (
@@ -9,7 +9,7 @@ export default function App() {
       <Toaster position="top-right" richColors />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/stats/:code" element={<StatePage />} />
+        <Route path="/stats/:code" element={<StatsPage />} />
       </Routes>
     </BrowserRouter>
   )
