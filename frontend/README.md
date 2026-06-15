@@ -1,21 +1,90 @@
-# React + TypeScript + Vite + shadcn/ui
+# Frontend — React + Vite + Tailwind + shadcn
 
-This is a template for a new Vite project with React, TypeScript, and shadcn/ui.
+## Prerequisites
 
-## Adding components
+- Node.js v18+
+- The backend running on `http://localhost:8080` (see `../backend/README.md`)
 
-To add components to your app, run the following command:
+## 1. Install dependencies
 
 ```bash
-npx shadcn@latest add button
+cd frontend
+npm install
 ```
 
-This will place the ui components in the `src/components` directory.
+## 2. Configure the dev proxy
 
-## Using components
+`vite.config.ts` should already include a proxy so `/api/*` requests
+are forwarded to the Rust backend during development:
 
-To use the components in your app, import them as follows:
+```ts
+server: {
+  proxy: {
+    '/api': 'http://localhost:8080'
+  }
+}
+```
+
+## 3. Run
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:5173`.
+
+## 4. Build for production
+
+```bash
+npm run build
+```
+
+Output goes to `dist/`. Preview the production build locally with:
+```bash
+npm run preview
+```
+
+---
+
+## Project Structure
+
+```
+src/
+├── api/
+│   ├── axios.ts        # axios instance (proxy handles baseURL)
+│   └── urls.ts          # shortenUrl(), getStats() — backend calls
+├── components/
+│   ├── ui/               # shadcn components
+│   ├── ShortenForm.tsx   # create-short-link form
+│   ├── ResultCard.tsx     # displays the created short link
+│   └── Navbar.tsx
+├── pages/
+│   ├── HomePage.tsx       # "/" — shorten form + result
+│   └── StatsPage.tsx      # "/stats/:code" — click stats
+└── App.tsx                # router setup
+```
+
+## Icons
+
+Uses [Hugeicons](https://hugeicons.com):
+```bash
+npm install @hugeicons/react @hugeicons/core-free-icons
+```
 
 ```tsx
-import { Button } from "@/components/ui/button"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Copy01Icon } from "@hugeicons/core-free-icons"
+
+<HugeiconsIcon icon={Copy01Icon} size={16} />
 ```
+
+## Pages
+
+| Route | Description |
+|-------|-------------|
+| `/` | Form to shorten a URL (with optional custom code). Shows the result with a copy button. |
+| `/stats/:code` | Shows the original URL, click count, and creation date for a short code. |
+
+## Preview
+
+![Frontend preview](./public/preview.png)

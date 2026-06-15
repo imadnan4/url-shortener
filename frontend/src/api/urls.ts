@@ -19,7 +19,7 @@ export interface ShortenInput {
 }
 
 // POST /api/shorten
-export const shortUrl = async (
+export const shortenUrl = async (
   input: ShortenInput
 ): Promise<ShortenResponse> => {
   const payload: ShortenInput = { url: input.url }
